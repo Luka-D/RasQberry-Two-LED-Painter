@@ -3,7 +3,7 @@ import json
 import argparse
 
 # Imports for LED array
-# import board
+import board
 import neopixel_spi as neopixel
 
 # # Neopixel constants

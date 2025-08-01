@@ -1,6 +1,7 @@
 # Standard
 import sys
 import json
+from argparse import Namespace
 
 # Third Party
 from PySide6.QtWidgets import (
@@ -55,10 +56,9 @@ class Window(QMainWindow):
         # creating file menu for save and clear action
         fileMenu = mainMenu.addMenu("File")
 
-        # adding brush size to main menu
+        # Adding sub-menus
         brushSizeMenu = mainMenu.addMenu("Brush Size")
 
-        # adding brush color to main menu
         brushColorMenu = mainMenu.addMenu("Brush Color")
 
         displayMenu = mainMenu.addMenu("Display")
@@ -89,7 +89,7 @@ class Window(QMainWindow):
         brushColorMenu.addAction(colorWheel)
         colorWheel.triggered.connect(self.colorWheel)
 
-        displayToLEDs = QAction("Display this image on the LEDs")
+        displayToLEDs = QAction("Display this image on the LEDs", self)
         displayMenu.addAction(displayToLEDs)
         displayToLEDs.triggered.connect(self.displayToLEDs)
 
@@ -206,7 +206,7 @@ class Window(QMainWindow):
                 pixel_dict[new_index] = list(pixel_color)
                 index_counter += 1
         print(pixel_dict)
-        display_to_LEDs(pixel_dict, brightness=1.0, console=False)
+        display_to_LEDs(pixel_dict, Namespace(brightness=1.0, console=False))
 
 
 def main():
