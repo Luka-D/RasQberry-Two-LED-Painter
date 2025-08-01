@@ -205,7 +205,7 @@ class Window(QMainWindow):
                 new_index = LED_array_indices[index_counter]
                 pixel_dict[new_index] = list(pixel_color)
                 index_counter += 1
-        print(pixel_dict)
+
         display_to_LEDs(pixel_dict, Namespace(brightness=1.0, console=False))
 
 
