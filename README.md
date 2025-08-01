@@ -20,7 +20,7 @@ Run the script using:
 
 ```python3 LED_painter.py```
 
-Additionally, you can also save your images by going to `File -> Save` in the toolbar. These images can be later displayed on the LED array by running the following command and pasting the path of the saved image into the console:
+Additionally, you can also save your images to a JSON file by going to `File -> Save` in the toolbar. These images can be later displayed on the LED array by running the following command and pasting the path of the saved file into the console:
 
 ```python3 display_to_LEDs_from_file.py```
 
