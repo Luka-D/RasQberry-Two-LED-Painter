@@ -8,7 +8,7 @@ import neopixel_spi as neopixel
 
 # # Neopixel constants
 NUM_PIXELS = 192
-PIXEL_ORDER = neopixel.RGB
+PIXEL_ORDER = neopixel.GRB
 
 
 def display_to_LEDs(array_data, args):
@@ -43,7 +43,7 @@ def display_to_LEDs(array_data, args):
     # Display to LED array
     for index, color in array_data.items():
         # Get RGB data from pixel list, notice that the LED array is actually in GRB
-        green, red, blue = color[0], color[1], color[2]
+        red, green, blue = color[0], color[1], color[2]
 
         # Set the appropriate pixel to the RGB value
         pixels[int(index)] = (red, green, blue)
