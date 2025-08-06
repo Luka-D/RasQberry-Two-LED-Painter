@@ -15,7 +15,7 @@ pip install -r requirements.txt
 You will also need to install the `libxcb` library using the following command:
 
 ```sh
-sudo apt-get install libxcb-cursor-dev
+sudo apt install libxcb-cursor-dev
 ```
 
 ## How to Run
