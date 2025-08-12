@@ -7,6 +7,7 @@ from argparse import Namespace
 from PySide6.QtWidgets import (
     QApplication,
     QMainWindow,
+    QLabel,
     QVBoxLayout,
     QColorDialog,
     QFileDialog,
@@ -18,6 +19,7 @@ from PySide6.QtCore import Qt, QPoint
 # Local
 from display_to_LEDs_from_file import display_to_LEDs
 from LED_array_indices import LED_array_indices
+from turn_off_LEDs import turn_off_LEDs
 
 
 # window class
@@ -173,6 +175,9 @@ class Window(QMainWindow):
         self.image.fill(Qt.black)
         self.update()
 
+        # Clear LEDs
+        turn_off_LEDs()
+
     # methods for changing pixel sizes
     def brushSize1(self):
         self.brushSize = 1
@@ -201,6 +206,9 @@ class Window(QMainWindow):
                 new_index = LED_array_indices[index_counter]
                 pixel_dict[new_index] = list(pixel_color)
                 index_counter += 1
+
+        # Clear LEDs before displaying new image, helps reduce issues
+        turn_off_LEDs()
 
         display_to_LEDs(pixel_dict, Namespace(brightness=1.0, console=False))
 
