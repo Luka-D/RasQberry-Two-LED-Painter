@@ -7,11 +7,7 @@ from argparse import Namespace
 from PySide6.QtWidgets import (
     QApplication,
     QMainWindow,
-    QLabel,
-    QPushButton,
     QVBoxLayout,
-    QWidget,
-    QSizePolicy,
     QColorDialog,
     QFileDialog,
     QMessageBox,
