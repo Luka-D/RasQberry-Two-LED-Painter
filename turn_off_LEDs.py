@@ -1,4 +1,4 @@
-# Imports for LED array
+# Third Party Imports for LED array
 import board
 import neopixel_spi as neopixel
 

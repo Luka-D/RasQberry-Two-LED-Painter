@@ -2,6 +2,7 @@
 import sys
 import json
 from argparse import Namespace
+import atexit
 
 # Third Party
 from PySide6.QtWidgets import (
@@ -27,31 +28,27 @@ class Window(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        # setting title
         self.setWindowTitle("RasQberry Two LED Painter")
 
-        # setting geometry to main window
         self.setGeometry(100, 100, 960, 320)
 
-        # creating image object (8x24)
+        # Creating image object (8x24)
         self.image = QImage(24, 8, QImage.Format_RGB32)
 
         # Scale factor
         self.scaleFactor = self.frameGeometry().width() / self.image.width()
 
-        # making image color to white
         self.image.fill(Qt.black)
 
-        # variables
+        # Variables
         self.drawing = False  # drawing flag
         self.brushSize = 1  # default brush size
         self.brushColor = Qt.white  # default color
         self.lastPoint = QPoint()
 
-        # creating menu bar
         mainMenu = self.menuBar()
 
-        # creating file menu for save and clear action
+        # Creating file menu for save and clear action
         fileMenu = mainMenu.addMenu("File")
 
         # Adding sub-menus
@@ -61,19 +58,19 @@ class Window(QMainWindow):
 
         displayMenu = mainMenu.addMenu("Display")
 
-        # creating save action
+        # Creating save action
         saveAction = QAction("Save", self)
         saveAction.setShortcut("Ctrl + S")
         fileMenu.addAction(saveAction)
         saveAction.triggered.connect(self.save)
 
-        # creating clear action
+        # Creating clear action
         clearAction = QAction("Clear", self)
         clearAction.setShortcut("Ctrl + C")
         fileMenu.addAction(clearAction)
         clearAction.triggered.connect(self.clear)
 
-        # creating options for brush sizes
+        # Creating options for brush sizes
         size1 = QAction("1px", self)
         brushSizeMenu.addAction(size1)
         size1.triggered.connect(self.brushSize1)
@@ -82,7 +79,7 @@ class Window(QMainWindow):
         brushSizeMenu.addAction(size2)
         size2.triggered.connect(self.brushSize2)
 
-        # creating options for brush color
+        # Creating options for brush color
         colorWheel = QAction("Open Color Wheel", self)
         brushColorMenu.addAction(colorWheel)
         colorWheel.triggered.connect(self.colorWheel)
@@ -98,7 +95,7 @@ class Window(QMainWindow):
         layout.addWidget(imageLabel)
         self.show()
 
-    # method for checking mouse clicks
+    # Method for checking mouse clicks
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
             self.drawing = True
@@ -117,7 +114,7 @@ class Window(QMainWindow):
             self.lastPoint = scaled_pos
             self.update()
 
-    # method for tracking mouse activity
+    # Method for tracking mouse activity
     def mouseMoveEvent(self, event):
         if (bool(event.buttons()) & bool(Qt.LeftButton)) & self.drawing:
             painter = QPainter(self.image)
@@ -135,17 +132,17 @@ class Window(QMainWindow):
             self.lastPoint = scaled_pos
             self.update()
 
-    # method for mouse left button release
+    # Method for mouse left button release
     def mouseReleaseEvent(self, event):
         if event.button() == Qt.LeftButton:
             self.drawing = False
 
-    # paint event - scale the image to fit the window size
+    # Paint event - scale the image to fit the window size
     def paintEvent(self, event):
         canvasPainter = QPainter(self)
         canvasPainter.drawImage(self.rect(), self.image, self.image.rect())
 
-    # method for saving canvas
+    # Method for saving canvas
     def save(self):
         index_counter = 0
         pixel_dict = {}
@@ -170,7 +167,7 @@ class Window(QMainWindow):
             fileSavedDialog.setText(f"File saved to: \n{file.name}")
             fileSavedDialog.exec()
 
-    # method for clearing everything on canvas
+    # Method for clearing everything on canvas
     def clear(self):
         self.image.fill(Qt.black)
         self.update()
@@ -178,7 +175,7 @@ class Window(QMainWindow):
         # Clear LEDs
         turn_off_LEDs()
 
-    # methods for changing pixel sizes
+    # Methods for changing pixel sizes
     def brushSize1(self):
         self.brushSize = 1
 
@@ -214,6 +211,9 @@ class Window(QMainWindow):
 
 
 def main():
+    # Turn off LEDs whenever the program is closed
+    atexit.register(turn_off_LEDs)
+
     app = QApplication(sys.argv)
     window = Window()
     window.show()
