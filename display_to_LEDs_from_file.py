@@ -1,10 +1,14 @@
 # Standard
 import json
 import argparse
+import atexit
 
-# Imports for LED array
+# Third Party Imports for LED array
 import board
 import neopixel_spi as neopixel
+
+# Local
+from turn_off_LEDs import turn_off_LEDs
 
 # # Neopixel constants
 NUM_PIXELS = 192
@@ -85,6 +89,8 @@ def parse_arguments():
 
 def main(**kwargs):
     args = parse_arguments()
+    # Turn off LEDs whenever the program is closed
+    atexit.register(turn_off_LEDs)
 
     # Loading from file
     if args.file:
