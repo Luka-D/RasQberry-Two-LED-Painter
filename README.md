@@ -28,13 +28,17 @@ Run the script using:
 python3 LED_painter.py
 ```
 
-Additionally, you can also save your images to a JSON file by going to `File -> Save` in the toolbar. These images can be later displayed on the LED array by running the following command and pasting the path of the saved file into the console:
+You can also save your images to a JSON file by going to `File -> Save` in the toolbar. These images can be re-imported later by going to `File -> Import`. 
+
+You can clear the current canvas by going to `File -> Clear`, take note that this will also clear any image currently displayed on the LEDs.
+
+To display a saved image through the command line, run the following command and paste the path of the saved file into the console:
 
 ```python
 python3 display_to_LEDs_from_file.py
 ```
 
-To turn off all of the LEDs, you can run this script:
+To turn off all of the LEDs, simply close the program window. Alternatively, you can run this script:
 
 ```python
 python3 turn_off_LEDs.py
