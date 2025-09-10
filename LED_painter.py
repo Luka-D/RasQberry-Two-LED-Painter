@@ -19,7 +19,6 @@ from PySide6.QtCore import Qt, QPoint
 
 # Local
 from display_to_LEDs_from_file import display_to_LEDs
-from LED_array_indices import LED_array_indices
 from turn_off_LEDs import turn_off_LEDs
 
 
@@ -63,6 +62,12 @@ class Window(QMainWindow):
         saveAction.setShortcut("Ctrl + S")
         fileMenu.addAction(saveAction)
         saveAction.triggered.connect(self.save)
+
+        # Creating save action
+        importAction = QAction("Import", self)
+        importAction.setShortcut("Ctrl + I")
+        fileMenu.addAction(importAction)
+        importAction.triggered.connect(self.import_file)
 
         # Creating clear action
         clearAction = QAction("Clear", self)
@@ -149,13 +154,14 @@ class Window(QMainWindow):
         for y in range(self.image.height()):
             for x in range(self.image.width()):
                 pixel_color = QColor(self.image.pixelColor(x, y)).getRgb()[:-1]
-                new_index = LED_array_indices[index_counter]
-                pixel_dict[new_index] = list(pixel_color)
+                pixel_dict[index_counter] = list(pixel_color)
                 index_counter += 1
 
         # Write to file
-        fileTypes = "JSON (*.json) ;; Plain Text (*.txt)"
-        file_name = QFileDialog.getSaveFileName(self, "Save File", "", filter=fileTypes)
+        file_types = "JSON (*.json) ;; Plain Text (*.txt)"
+        file_name = QFileDialog.getSaveFileName(
+            self, "Save File", "", filter=file_types
+        )
         file = open(file_name[0], "w")
         json.dump(pixel_dict, file, ensure_ascii=False, indent=4)
         file.close()
@@ -166,6 +172,24 @@ class Window(QMainWindow):
             fileSavedDialog.setWindowTitle("File Saved Successfully")
             fileSavedDialog.setText(f"File saved to: \n{file.name}")
             fileSavedDialog.exec()
+
+    # Method for opening a saved image file and drawing to canvas
+    def import_file(self):
+        file_types = "JSON (*.json) ;; Plain Text (*.txt)"
+        file_name = QFileDialog.getOpenFileName(
+            self, "Open File", "", filter=file_types
+        )
+        with open(file_name[0], "r") as file:
+            file_data = json.load(file)
+
+            for key, value in file_data.items():
+                index = int(key)
+
+                # Convert the index positions of the image to x,y coordinates
+                x, y = int(index / 24), index % 24
+                self.image.setPixelColor(y, x, QColor(*value))
+
+            self.update()
 
     # Method for clearing everything on canvas
     def clear(self):
@@ -200,8 +224,7 @@ class Window(QMainWindow):
         for y in range(self.image.height()):
             for x in range(self.image.width()):
                 pixel_color = QColor(self.image.pixelColor(x, y)).getRgb()[:-1]
-                new_index = LED_array_indices[index_counter]
-                pixel_dict[new_index] = list(pixel_color)
+                pixel_dict[index_counter] = list(pixel_color)
                 index_counter += 1
 
         # Clear LEDs before displaying new image, helps reduce issues

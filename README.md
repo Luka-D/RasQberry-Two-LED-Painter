@@ -1,5 +1,7 @@
 # RasQberry-Two-LED-Painter
 
+![Screenshot of program](screenshot.png)
+
 This is a program for the RasQberry Two Project, designed to paint an image to be displayed on the LED array.
 
 The git repo for the RasQberry Two Project can be found [here](https://github.com/JanLahmann/RasQberry-Two).
@@ -39,5 +41,3 @@ python3 turn_off_LEDs.py
 ```
 
 **! Note:** To run this script on a Raspberry Pi 5, you need to have SPI set up and use the proper wiring configuration. Instructions for wiring and setting up SPI can be found [here](https://rasqberry.org/3d-model/hardware-assembly-guide).
-
-
