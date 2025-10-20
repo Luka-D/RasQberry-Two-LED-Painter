@@ -47,14 +47,10 @@ class Window(QMainWindow):
 
         mainMenu = self.menuBar()
 
-        # Creating file menu for save and clear action
-        fileMenu = mainMenu.addMenu("File")
-
         # Adding sub-menus
+        fileMenu = mainMenu.addMenu("File")
         brushSizeMenu = mainMenu.addMenu("Brush Size")
-
         brushColorMenu = mainMenu.addMenu("Brush Color")
-
         displayMenu = mainMenu.addMenu("Display")
 
         # Creating save action
@@ -63,7 +59,7 @@ class Window(QMainWindow):
         fileMenu.addAction(saveAction)
         saveAction.triggered.connect(self.save)
 
-        # Creating save action
+        # Creating import action
         importAction = QAction("Import", self)
         importAction.setShortcut("Ctrl + I")
         fileMenu.addAction(importAction)
