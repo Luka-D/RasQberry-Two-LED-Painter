@@ -35,7 +35,8 @@ class Window(QMainWindow):
         self.image = QImage(24, 8, QImage.Format_RGB32)
 
         # Scale factor
-        self.scaleFactor = self.frameGeometry().width() / self.image.width()
+        self.xScaleFactor = self.frameGeometry().width() / self.image.width()
+        self.yScaleFactor = self.frameGeometry().height() / self.image.height()
 
         self.image.fill(Qt.black)
 
@@ -110,7 +111,7 @@ class Window(QMainWindow):
                     Qt.RoundJoin,
                 )
             )
-            scaled_pos = self.scalePosition(event.pos())
+            scaled_pos = self.scalePosition(event.position())
             painter.drawPoint(scaled_pos)
             self.lastPoint = scaled_pos
             self.update()
@@ -128,7 +129,7 @@ class Window(QMainWindow):
                     Qt.RoundJoin,
                 )
             )
-            scaled_pos = self.scalePosition(event.pos())
+            scaled_pos = self.scalePosition(event.position())
             painter.drawLine(self.lastPoint, scaled_pos)
             self.lastPoint = scaled_pos
             self.update()
@@ -206,10 +207,18 @@ class Window(QMainWindow):
         newColor = QColorDialog.getColor(self.brushColor)
         self.brushColor = newColor
 
+    # Change scale factor everytime window is resized
+    def resizeEvent(self, event):
+        self.xScaleFactor = self.frameGeometry().width() / self.image.width()
+        self.yScaleFactor = self.frameGeometry().height() / self.image.height()
+
+        return super().resizeEvent(event)
+
     # Helper function to scale the mouse position from window size to canvas size (8x24)
     def scalePosition(self, pos):
-        scaled_x = pos.x() / self.scaleFactor
-        scaled_y = pos.y() / self.scaleFactor
+        scaled_x = pos.x() / self.xScaleFactor
+        scaled_y = pos.y() / self.yScaleFactor
+
         # Ensure the coordinates are within the bounds of the canvas
         return QPoint(min(scaled_x, 31), min(scaled_y, 7))
 
