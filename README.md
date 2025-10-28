@@ -2,7 +2,7 @@
 
 ![Screenshot of program](screenshot.png)
 
-This is a program for the RasQberry Two Project, designed to paint an image to be displayed on the LED array.
+This is a program for the [RasQberry Two](https://rasqberry.org/) Project, designed to paint an image to be displayed on the LED array.
 
 The git repo for the RasQberry Two Project can be found [here](https://github.com/JanLahmann/RasQberry-Two).
 
