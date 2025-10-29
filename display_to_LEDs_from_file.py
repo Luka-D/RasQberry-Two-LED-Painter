@@ -9,7 +9,7 @@ import neopixel_spi as neopixel
 
 # Local
 from turn_off_LEDs import turn_off_LEDs
-from LED_ARRAY_INDICES import LED_ARRAY_INDICES
+from LED_array_indices import LED_ARRAY_INDICES
 
 # # Neopixel constants
 NUM_PIXELS = 192
