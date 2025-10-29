@@ -1,4 +1,4 @@
-LED_array_indices = {
+LED_ARRAY_INDICES = {
     0: 0,
     1: 7,
     2: 8,

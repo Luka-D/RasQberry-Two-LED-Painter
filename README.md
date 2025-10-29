@@ -1,6 +1,6 @@
 # RasQberry-Two-LED-Painter
 
-![Screenshot of program](screenshot.png)
+![Screenshot of program](Examples/RasQberry_Logo.png)
 
 This is a program for the [RasQberry Two](https://rasqberry.org/) Project, designed to paint an image to be displayed on the LED array.
 

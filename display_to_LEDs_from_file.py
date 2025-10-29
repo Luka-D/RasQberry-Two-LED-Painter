@@ -9,7 +9,7 @@ import neopixel_spi as neopixel
 
 # Local
 from turn_off_LEDs import turn_off_LEDs
-from LED_array_indices import LED_array_indices
+from LED_ARRAY_INDICES import LED_ARRAY_INDICES
 
 # # Neopixel constants
 NUM_PIXELS = 192
@@ -51,7 +51,7 @@ def display_to_LEDs(array_data, args):
         red, green, blue = color[0], color[1], color[2]
 
         # Transform the 0,1,2... index position to the associated position on the LED board
-        LED_array_index = LED_array_indices[int(index)]
+        LED_array_index = LED_ARRAY_INDICES[int(index)]
 
         # Set the appropriate pixel to the RGB value
         pixels[LED_array_index] = (red, green, blue)
