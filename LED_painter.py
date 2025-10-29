@@ -157,7 +157,7 @@ class Window(QMainWindow):
         # Write to file
         file_types = "JSON (*.json) ;; Plain Text (*.txt)"
         file_name = QFileDialog.getSaveFileName(
-            self, "Save File", "", filter=file_types
+            self, "Save File", ".json", filter=file_types
         )
         file = open(file_name[0], "w")
         json.dump(pixel_dict, file, ensure_ascii=False, indent=4)
